@@ -20,12 +20,12 @@ export function generateMidiFile(chordProgression: string[], key: string): Uint8
         return Math.max(0, Math.min(127, midiNote));
       });
       
-      // Add chord event (quarter note duration)
-      const chordEvent = new MidiWriter.NoteEvent({
-        pitch: midiNotes,
-        duration: '4',
-        velocity: 80 // Moderate velocity
-      });
+       // Add chord event (four beats duration - whole note)
+       const chordEvent = new MidiWriter.NoteEvent({
+         pitch: midiNotes,
+         duration: '1',
+         velocity: 80 // Moderate velocity
+       });
       
       track.addEvent(chordEvent);
     }

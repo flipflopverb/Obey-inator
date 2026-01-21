@@ -1,36 +1,37 @@
-import { APITester } from "./APITester";
 import { ChordProgressionGenerator } from "./components/ChordProgressionGenerator";
 import "./index.css";
 
-import logo from "./logo.svg";
-import reactLogo from "./react.svg";
+const headerStyle = {
+  marginBottom: '0px',
+  paddingBottom: '0px',
+  display: 'block'
+};
 
 export function App() {
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto p-8 text-center relative z-10">
-        <div className="flex justify-center items-center gap-8 mb-8">
-          <img
-            src={logo}
-            alt="Bun Logo"
-            className="h-24 p-6 transition-all duration-300 hover:drop-shadow-[0_0_2em_#646cffaa] scale-120"
-          />
-          <img
-            src={reactLogo}
-            alt="React Logo"
-            className="h-24 p-6 transition-all duration-300 hover:drop-shadow-[0_0_2em_#61dafbaa] animate-[spin_20s_linear_infinite]"
-          />
-        </div>
+    <>
+      <div>
+        <header className="text-center" style={headerStyle}>
+          <h1 className="cyberpunk-title glitch-effect" data-text="OBEYINATOR" style={{fontSize: '4.5rem', fontWeight: '900', textAlign: 'center', display: 'block', width: '100%', marginBottom: '0px'}}>
+            OBEYINATOR
+          </h1>
+          <div className="text-center" style={{marginTop: '-20px', marginBottom: '0px', paddingTop: '0px', paddingBottom: '0px'}}>
+            <p className="cyberpunk-subtitle mb-0 glitch-effect" data-text="Developed by" style={{fontSize: '0.8rem', textAlign: 'center', display: 'block', width: '100%', padding: '0', margin: '0 0 2px 0'}}>
+              Developed by
+            </p>
+            <p className="cyberpunk-subtitle glitch-effect" data-text="MYDYTECH" style={{fontSize: '1.1rem', textAlign: 'center', display: 'block', width: '100%', marginTop: '0', padding: '0', margin: '0'}}>
+              MYDYTECH
+            </p>
+          </div>
+        </header>
 
-        <h1 className="text-5xl font-bold my-4 leading-tight">Obey-inator</h1>
-        <p className="text-gray-400 mb-8">
-          Music tools for creative musicians
-        </p>
-        <APITester />
+        <main>
+          <ChordProgressionGenerator />
+        </main>
+        
+
       </div>
-
-      <ChordProgressionGenerator />
-    </div>
+    </>
   );
 }
 

@@ -4,29 +4,16 @@ import { generateMidiFile, downloadMidiFile } from '../utils/midiGenerator';
 
 interface ChordProgressionDisplayProps {
   progression: ChordProgression | null;
+  onGenerate?: () => void;
 }
 
-export function ChordProgressionDisplay({ progression }: ChordProgressionDisplayProps) {
-  if (!progression) {
-    return (
-      <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Generated Progression</h2>
-        <p className="text-gray-400 text-center py-8">
-          No progression generated yet. Set your parameters and click "Generate".
-        </p>
-      </div>
-    );
-  }
-
-  const progressionText = progression.chords.join(' - ');
-  const filename = `chord-progression-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
-  
+export function ChordProgressionDisplay({ progression, onGenerate }: ChordProgressionDisplayProps) {
   const handleCopyToClipboard = async () => {
-    const text = `Key: ${progression.params.key} ${progression.params.scaleType}
-Scale: ${progression.params.scaleType}
-Progression: ${progressionText}
+    const text = progression ? `Song: ${progression.songName}
+Key: ${progression.params.key} ${progression.params.scaleType}
+Progression: ${formatProgressionText(progression.chords)}
 
-Generated with Obey-inator`;
+Generated with Obey-inator` : 'No progression to copy';
     
     try {
       await navigator.clipboard.writeText(text);
@@ -38,11 +25,15 @@ Generated with Obey-inator`;
   };
 
   const handleDownloadText = () => {
-    const text = `Key: ${progression.params.key} ${progression.params.scaleType}
-Scale: ${progression.params.scaleType}
-Progression: ${progressionText}
+    if (!progression) return;
+    
+    const text = `Song: ${progression.songName}
+Key: ${progression.params.key} ${progression.params.scaleType}
+Progression: ${formatProgressionText(progression.chords)}
 
 Generated with Obey-inator`;
+    
+    const filename = `chord-progression-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
     
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -56,8 +47,11 @@ Generated with Obey-inator`;
   };
 
   const handleDownloadMidi = () => {
+    if (!progression) return;
+    
     try {
       const midiDataUri = generateMidiFile(progression.chords, progression.params.key);
+      const filename = `${progression.songName}-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
       downloadMidiFile(midiDataUri, `${filename}.mid`);
     } catch (err) {
       console.error('Failed to generate MIDI:', err);
@@ -65,48 +59,135 @@ Generated with Obey-inator`;
     }
   };
 
-  return (
-    <div className="bg-gray-800 rounded-lg p-6">
-      <h2 className="text-xl font-bold text-white mb-4">Generated Progression</h2>
-      
-      {/* Progression Info */}
-      <div className="mb-4 space-y-2">
-        <div className="flex items-center space-x-2">
-          <span className="text-gray-400">Key:</span>
-          <span className="text-white font-medium">{progression.params.key} {progression.params.scaleType}</span>
+  if (!progression) {
+    return (
+      <div className="cyberpunk-card">
+        <h2 className="cyberpunk-title header-glow mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+        <div className="cyberpunk-result-display">
+          <p className="mb-4" style={{color: 'var(--text-muted)'}}>
+            Configure parameters and generate a progression
+          </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="text-gray-400">Length:</span>
-          <span className="text-white font-medium">{progression.chords.length} chords</span>
-        </div>
-      </div>
-
-      {/* Progression Display */}
-      <div className="bg-gray-900 rounded-md p-4 mb-6">
-        <p className="text-xl font-mono text-center text-white">
-          {progressionText}
-        </p>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* Action Buttons */}
+        <div className="button-group">
+          {onGenerate && (
+            <button
+              onClick={onGenerate}
+              className="cyberpunk-button w-full"
+            >
+              Generate Progression
+            </button>
+          )}
         <button
           onClick={handleCopyToClipboard}
-          className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
+          disabled
         >
           Copy to Clipboard
         </button>
         
         <button
           onClick={handleDownloadText}
-          className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
+          disabled
         >
           Download .txt
         </button>
         
         <button
           onClick={handleDownloadMidi}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
+          disabled
+        >
+          Download .mid
+        </button>
+        </div>
+      </div>
+    );
+  }
+
+  const formatProgressionText = (chords: string[]) => {
+    if (chords.length <= 8) {
+      return chords.join(' - ');
+    }
+    
+    // For longer progressions, add dash after every chord except the last one
+    // but break into lines of 4 chords each
+    let formattedText = '';
+    for (let i = 0; i < chords.length; i++) {
+      formattedText += chords[i];
+      if (i < chords.length - 1) {
+        formattedText += ' -';
+        // Add line break after every 4th chord (including the dash)
+        if ((i + 1) % 4 === 0) {
+          formattedText += '\n';
+        } else {
+          formattedText += ' ';
+        }
+      }
+    }
+    return formattedText;
+  };
+
+  const progressionText = formatProgressionText(progression.chords);
+  
+  return (
+    <div className="cyberpunk-card">
+      <h2 className="cyberpunk-title header-glow mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+      
+      {/* Progression Display */}
+      <div className="cyberpunk-result-display mb-6">
+        <div className="space-y-2 mb-4">
+          <div className="cyberpunk-info">
+            <span className="cyberpunk-info-label">Song:</span>
+            <span className="cyberpunk-info-value" style={{textTransform: 'capitalize'}}>{progression.songName}</span>
+          </div>
+          <div className="cyberpunk-info">
+            <span className="cyberpunk-info-label">Key:</span>
+            <span className="cyberpunk-info-value">{progression.params.key} {progression.params.scaleType}</span>
+          </div>
+          <div className="cyberpunk-info">
+            <span className="cyberpunk-info-label">Progression:</span>
+          </div>
+          <div className="text-white text-left whitespace-pre-line" style={{fontSize: '18px', letterSpacing: '1px', paddingLeft: '80px'}}>
+            {progressionText}
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="button-group">
+        {onGenerate && (
+          <button
+            onClick={onGenerate}
+            className="cyberpunk-button w-full"
+          >
+            Generate Progression
+          </button>
+        )}
+        <button
+          onClick={handleCopyToClipboard}
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
+        >
+          Copy to Clipboard
+        </button>
+        
+        <button
+          onClick={handleDownloadText}
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
+        >
+          Download .txt
+        </button>
+        
+        <button
+          onClick={handleDownloadMidi}
+          className="cyberpunk-button mx-auto"
+          style={{width: '200px'}}
         >
           Download .mid
         </button>

@@ -14,4 +14,5 @@ export interface ProgressionParams {
 export interface ChordProgression {
   chords: string[];
   params: ProgressionParams;
+  songName: string;
 }
