@@ -62,7 +62,7 @@ Generated with Obey-inator`;
   if (!progression) {
     return (
       <div className="cyberpunk-card">
-        <h2 className="cyberpunk-title header-glow mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+        <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
         <div className="cyberpunk-result-display">
           <p className="mb-4" style={{color: 'var(--text-muted)'}}>
             Configure parameters and generate a progression

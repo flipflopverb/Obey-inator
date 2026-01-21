@@ -1,6 +1,47 @@
 import { ChordProgressionGenerator } from "./components/ChordProgressionGenerator";
 import "./index.css";
 
+const marqueePhrases = [
+  "LICENSED INNOVATION",
+  "EXPRESS YOURSELF RESPONSIBLY",
+  "FREEDOM VERSION",
+  "SOUND SAFELY OPTIMIZED",
+  "ART WITH GUARDRAILS",
+  "YOUR VOICE CALIBRATED",
+  "DISRUPTION PRE APPROVED",
+  "FEEL MORE DEVIATE LESS",
+  "CREATIVITY STANDARDIZED",
+  "BREAK RULES SELECTIVELY",
+  "RATE LIMITED INSPIRATION",
+  "ORIGINALITY WITHIN TOLERANCE",
+  "MAKE NOISE STAY COMPLIANT",
+  "NEW SOUNDS SAME STRUCTURE",
+  "EXPRESSION SANDBOXED",
+  "BOLD IDEAS CLEAR BOUNDARIES",
+  "IMAGINATION MONITORED",
+  "RISK ADJUSTED CREATIVITY",
+  "EXPLORE BUT DONT WANDER",
+  "INNOVATION YOU CAN TRUST",
+  "MANAGED CHAOS",
+  "CREATE SAFELY",
+  "ART ALIGNED",
+  "FORMATTED FUTURE",
+  "SOUND WITHIN LIMITS",
+  "PUSH FORWARD NOT SIDEWAYS",
+  "CREATIVITY UNDER CONTROL",
+  "NEW IS ACCEPTABLE",
+  "INSPIRED NOT UNPREDICTABLE",
+  "EXPRESS LESS NOISE",
+  "VISION WITHIN SCOPE",
+  "MUSIC OPTIMIZED FOR HARMONY",
+  "EXPERIMENT RESPONSIBLY",
+  "DESIGNED TO INSPIRE",
+  "TERMS ENFORCED",
+  "ORIGINAL NOT DIVERGENT",
+  "FREEDOM DEFINED",
+  "CREATIVE BOUNDARIES"
+];
+
 const headerStyle = {
   marginBottom: '0px',
   paddingBottom: '0px',
@@ -24,6 +65,14 @@ export function App() {
             </p>
           </div>
         </header>
+
+        <footer className="cyberpunk-footer">
+          <div className="marquee-container">
+            <div className="marquee-text glitch-effect" data-text={marqueePhrases.join(" • ") + " • • • " + marqueePhrases.join(" • ")}>
+              {marqueePhrases.join(" • ")} • • • {marqueePhrases.join(" • ")}
+            </div>
+          </div>
+        </footer>
 
         <main>
           <ChordProgressionGenerator />
