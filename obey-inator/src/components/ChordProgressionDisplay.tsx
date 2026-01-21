@@ -11,9 +11,7 @@ export function ChordProgressionDisplay({ progression, onGenerate }: ChordProgre
   const handleCopyToClipboard = async () => {
     const text = progression ? `Song: ${progression.songName}
 Key: ${progression.params.key} ${progression.params.scaleType}
-Progression: ${formatProgressionText(progression.chords)}
-
-Generated with Obey-inator` : 'No progression to copy';
+Progression: ${formatProgressionText(progression.chords)}` : 'No progression to copy';
     
     try {
       await navigator.clipboard.writeText(text);
@@ -31,7 +29,9 @@ Generated with Obey-inator` : 'No progression to copy';
 Key: ${progression.params.key} ${progression.params.scaleType}
 Progression: ${formatProgressionText(progression.chords)}
 
-Generated with Obey-inator`;
+Generated with OBEYINATOR. Reminder: all artistic endeavors that use any MYDYTECH products grant all rights to those artistic outputs to MYDYTECH LLC. 
+
+TERMS WILL BE ENFORCED`;
     
     const filename = `chord-progression-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
     
@@ -62,7 +62,7 @@ Generated with Obey-inator`;
   if (!progression) {
     return (
       <div className="cyberpunk-card">
-        <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+      <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Chord Data</h2>
         <div className="cyberpunk-result-display">
           <p className="mb-4" style={{color: 'var(--text-muted)'}}>
             Configure parameters and generate a progression
@@ -136,7 +136,7 @@ Generated with Obey-inator`;
   
   return (
     <div className="cyberpunk-card">
-      <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+      <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Chord Progression Data</h2>
       
       {/* Progression Display */}
       <div className="cyberpunk-result-display mb-6">
@@ -151,9 +151,9 @@ Generated with Obey-inator`;
           </div>
           <div className="cyberpunk-info">
             <span className="cyberpunk-info-label">Progression:</span>
-          </div>
-          <div className="text-white text-left whitespace-pre-line" style={{fontSize: '18px', letterSpacing: '1px', paddingLeft: '80px'}}>
-            {progressionText}
+            <span className="text-white whitespace-pre-line" style={{fontSize: '18px', letterSpacing: '1px'}}>
+              {progressionText}
+            </span>
           </div>
         </div>
       </div>

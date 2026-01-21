@@ -80,7 +80,13 @@ export const KEY_TO_MIDI_OFFSET: Record<string, number> = {
 
 export function generateChordProgression(params: ProgressionParams): string[] {
   const availableChords = SCALE_CHORDS[params.scaleType];
-  const progression: string[] = [params.firstChord];
+  
+  // If first chord is "Any", randomly select from available chords
+  const firstChord = params.firstChord === "Any" 
+    ? availableChords[Math.floor(Math.random() * availableChords.length)]
+    : params.firstChord;
+    
+  const progression: string[] = [firstChord];
   
   // Create list of borrowed/suspended chords
   const borrowedSuspendedChords = Object.keys(CHORD_SEMITONES).filter(

@@ -9,10 +9,23 @@ export interface ProgressionParams {
   length: number;
   allowBorrowedSuspended: boolean;
   firstChord: string;
+  upperTempoLimit: number;
+  lowerTempoLimit: number;
+  songLength: number;
+  timeSignature: string;
 }
 
 export interface ChordProgression {
   chords: string[];
   params: ProgressionParams;
   songName: string;
+}
+
+export interface SongInfo {
+  songName: string;
+  songLength: number;
+  timeSignature: string;
+  tempo: number;
+  fourBarSections: number;
+  timestamp: number;
 }

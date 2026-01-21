@@ -28,7 +28,7 @@ export function ChordProgressionControls({ params, onParamsChange, onGenerate }:
   return (
     <div className="space-y-6">
       <div className="cyberpunk-card">
-        <h2 className="cyberpunk-title" style={{textAlign: 'left'}}>Settings</h2>
+        <h2 className="cyberpunk-title" style={{textAlign: 'left'}}>Chord Settings</h2>
 
         
         <div className="settings-grid">

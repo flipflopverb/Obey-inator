@@ -4,7 +4,7 @@ import "./index.css";
 
 const marqueePhrases = [
   "TERMS ENFORCED",
-  "BOLD IDEAS CLEAR BOUNDARIES"
+  "EXPERIMENT RESPONSIBLY"
 ];
 
 const headerStyle = {
@@ -123,7 +123,7 @@ export function App() {
         }
         
         // Draw red line
-        ctx.fillStyle = 'rgba(139, 0, 0, 0.8)'; // Darker red
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.9)'; // Brighter red
         
         if (line.direction === 'up') {
           // Rotate text for vertical movement
@@ -153,7 +153,7 @@ export function App() {
         const x = i * columnWidth + columnWidth / 2;
 
         // Always grayscale
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // 30% transparent white
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; // 60% transparent white
 
         // Randomly activate/deactivate columns for gaps
         if (!column.active) {
@@ -207,7 +207,7 @@ export function App() {
     <>
       <canvas ref={canvasRef} className="matrix-rain-background" />
       <div>
-        <header className="text-center" style={headerStyle}>
+        <header className="text-center sticky-header" style={headerStyle}>
           <h1 className="cyberpunk-title glitch-effect" data-text="OBEYINATOR" style={{fontSize: '4.5rem', fontWeight: '900', textAlign: 'center', display: 'block', width: '100%', marginBottom: '0px'}}>
             OBEYINATOR
           </h1>
@@ -221,19 +221,19 @@ export function App() {
           </div>
         </header>
 
-        <footer className="cyberpunk-footer">
-          <div className="marquee-container">
-            <div className="marquee-text glitch-effect" data-text="TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES">
-              TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES • TERMS ENFORCED • BOLD IDEAS CLEAR BOUNDARIES
+        <div style={{minHeight: 'calc(100vh - 100px)', display: 'flex', flexDirection: 'column'}}>
+          <main style={{flex: 1, paddingBottom: '120px'}}>
+            <ChordProgressionGenerator />
+          </main>
+          
+          <footer className="cyberpunk-footer">
+            <div className="footer-text-container">
+              <div className="footer-text glitch-effect" data-text="TERMS ENFORCED • EXPERIMENT RESPONSIBLY">
+                TERMS ENFORCED • EXPERIMENT RESPONSIBLY
+              </div>
             </div>
-          </div>
-        </footer>
-
-        <main>
-          <ChordProgressionGenerator />
-        </main>
-        
-
+          </footer>
+        </div>
       </div>
     </>
   );
