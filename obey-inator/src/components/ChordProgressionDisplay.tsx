@@ -136,7 +136,7 @@ Generated with Obey-inator`;
   
   return (
     <div className="cyberpunk-card">
-      <h2 className="cyberpunk-title header-glow mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
+      <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Generated Progression</h2>
       
       {/* Progression Display */}
       <div className="cyberpunk-result-display mb-6">
