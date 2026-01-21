@@ -5,13 +5,21 @@ interface ToolSelectionProps {
   showChordTools: boolean;
   onSongToolsChange: (enabled: boolean) => void;
   onChordToolsChange: (enabled: boolean) => void;
+  showDevCheckbox?: boolean;
+  devModeEnabled?: boolean;
+  onDevModeChange?: (enabled: boolean) => void;
+  onDevCheckboxShow?: (show: boolean) => void;
 }
 
 export function ToolSelection({ 
   showSongTools, 
   showChordTools, 
   onSongToolsChange, 
-  onChordToolsChange 
+  onChordToolsChange,
+  showDevCheckbox = false,
+  devModeEnabled = false,
+  onDevModeChange,
+  onDevCheckboxShow
 }: ToolSelectionProps) {
   return (
     <div className="tool-selection-card">
@@ -35,6 +43,17 @@ export function ToolSelection({
           />
           <span>Chord Settings & Data</span>
         </label>
+        
+        {showDevCheckbox && (
+          <label className="tool-checkbox dev-checkbox">
+            <input
+              type="checkbox"
+              checked={devModeEnabled}
+              onChange={(e) => onDevModeChange?.(e.target.checked)}
+            />
+            <span>Developer Mode</span>
+          </label>
+        )}
       </div>
     </div>
   );

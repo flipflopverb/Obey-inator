@@ -7,7 +7,15 @@ import { ToolSelection } from './ToolSelection';
 import { generateChordProgression } from '../utils/chordTheory';
 import { ProgressionParams, ChordProgression, SongInfo } from '../types/chords';
 
-export function ChordProgressionGenerator() {
+interface ChordProgressionGeneratorProps {
+  showDevCheckbox?: boolean;
+  onDevCheckboxShow?: (show: boolean) => void;
+}
+
+export function ChordProgressionGenerator({ 
+  showDevCheckbox: externalShowDevCheckbox = false,
+  onDevCheckboxShow
+}: ChordProgressionGeneratorProps) {
   const [params, setParams] = useState<ProgressionParams>({
     scaleType: 'Major',
     key: 'C',
@@ -24,6 +32,19 @@ export function ChordProgressionGenerator() {
   const [generatedSongInfo, setGeneratedSongInfo] = useState<SongInfo | null>(null);
   const [showSongTools, setShowSongTools] = useState<boolean>(true);
   const [showChordTools, setShowChordTools] = useState<boolean>(true);
+  const [internalShowDevCheckbox, setInternalShowDevCheckbox] = useState<boolean>(false);
+  const [devModeEnabled, setDevModeEnabled] = useState<boolean>(false);
+  
+  // Use external state if provided, otherwise use internal state
+  const showDevCheckbox = externalShowDevCheckbox || internalShowDevCheckbox;
+  
+  const handleDevCheckboxShow = (show: boolean) => {
+    if (onDevCheckboxShow) {
+      onDevCheckboxShow(show);
+    } else {
+      setInternalShowDevCheckbox(show);
+    }
+  };
 
   const generateSongName = () => {
     const consonants = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V', 'W', 'X', 'Z'];
@@ -93,6 +114,10 @@ export function ChordProgressionGenerator() {
         showChordTools={showChordTools}
         onSongToolsChange={setShowSongTools}
         onChordToolsChange={setShowChordTools}
+        showDevCheckbox={showDevCheckbox}
+        devModeEnabled={devModeEnabled}
+        onDevModeChange={setDevModeEnabled}
+        onDevCheckboxShow={handleDevCheckboxShow}
       />
       
       <div className="grid-2x2" style={{marginTop: '4rem'}}>

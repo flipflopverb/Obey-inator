@@ -82,8 +82,8 @@ TERMS WILL BE ENFORCED`;
     };
   };
 
-  // Use generated song info if available, otherwise generate default
-  const songInfo = generatedSongInfo || generateSongInfo();
+  // Use generated song info if available, otherwise show default state
+  const songInfo = generatedSongInfo;
 
   return (
     <div className="space-y-6">
@@ -91,30 +91,38 @@ TERMS WILL BE ENFORCED`;
         <h2 className="cyberpunk-title" style={{textAlign: 'left'}}>Song Data</h2>
         
         <div className="cyberpunk-result-display" style={{height: '360px'}}>
-          <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
-            <span className="cyberpunk-info-label">Song Name:</span>
-            <span className="cyberpunk-info-value">{songInfo.songName}</span>
-          </div>
-          
-          <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
-            <span className="cyberpunk-info-label">Song Length:</span>
-            <span className="cyberpunk-info-value">{songInfo.songLength} {songInfo.songLength === 1 ? 'minute' : 'minutes'}</span>
-          </div>
-          
-          <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
-            <span className="cyberpunk-info-label">Time Signature:</span>
-            <span className="cyberpunk-info-value">{songInfo.timeSignature}</span>
-          </div>
-          
-          <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
-            <span className="cyberpunk-info-label">Tempo:</span>
-            <span className="cyberpunk-info-value">{songInfo.tempo} BPM</span>
-          </div>
-          
-          <div className="cyberpunk-info">
-            <span className="cyberpunk-info-label">4-Bar Sections:</span>
-            <span className="cyberpunk-info-value">{songInfo.fourBarSections}</span>
-          </div>
+          {!songInfo ? (
+            <p className="mb-4" style={{color: 'var(--text-muted)', textAlign: 'center', marginTop: '80px'}}>
+              Configure parameters then click generate
+            </p>
+          ) : (
+            <>
+              <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
+                <span className="cyberpunk-info-label">Data Tag:</span>
+                <span className="cyberpunk-info-value">{songInfo.songName}</span>
+              </div>
+              
+              <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
+                <span className="cyberpunk-info-label">Length:</span>
+                <span className="cyberpunk-info-value">{songInfo.songLength} {songInfo.songLength === 1 ? 'minute' : 'minutes'}</span>
+              </div>
+              
+              <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
+                <span className="cyberpunk-info-label">Time Signature:</span>
+                <span className="cyberpunk-info-value">{songInfo.timeSignature}</span>
+              </div>
+              
+              <div className="cyberpunk-info" style={{marginBottom: '24px'}}>
+                <span className="cyberpunk-info-label">Tempo:</span>
+                <span className="cyberpunk-info-value">{songInfo.tempo} BPM</span>
+              </div>
+              
+              <div className="cyberpunk-info">
+                <span className="cyberpunk-info-label">4-Bar Sections:</span>
+                <span className="cyberpunk-info-value">{songInfo.fourBarSections}</span>
+              </div>
+            </>
+          )}
         </div>
         
         {/* Generate Button */}

@@ -648,7 +648,36 @@ body::before {
   user-select: none;
 }
 
+/* Developer checkbox special styling */
+.tool-checkbox.dev-checkbox {
+  color: #DC143C;
+  font-weight: 600;
+  position: relative;
+  animation: devGlow 2s ease-in-out infinite;
+}
 
+.tool-checkbox.dev-checkbox input[type="checkbox"] {
+  accent-color: #DC143C;
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
+}
+
+.tool-checkbox.dev-checkbox input[type="checkbox"]:hover {
+  box-shadow: 0 0 16px rgba(220, 20, 60, 1);
+}
+
+.tool-checkbox.dev-checkbox span::before {
+  content: "🔧 ";
+  font-size: 14px;
+}
+
+@keyframes devGlow {
+  0%, 100% { 
+    text-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+  }
+  50% { 
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+  }
+}
 
 @media (max-width: 1400px) {
   .grid-2 {

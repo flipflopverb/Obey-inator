@@ -62,10 +62,10 @@ TERMS WILL BE ENFORCED`;
   if (!progression) {
     return (
       <div className="cyberpunk-card">
-      <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Chord Data</h2>
+        <h2 className="cyberpunk-title mb-4" style={{textAlign: 'left'}}>Chord Data</h2>
         <div className="cyberpunk-result-display">
           <p className="mb-4" style={{color: 'var(--text-muted)'}}>
-            Configure parameters and generate a progression
+            Configure parameters then click generate
           </p>
         </div>
         {/* Action Buttons */}
@@ -142,7 +142,7 @@ TERMS WILL BE ENFORCED`;
       <div className="cyberpunk-result-display mb-6">
         <div className="space-y-2 mb-4">
           <div className="cyberpunk-info">
-            <span className="cyberpunk-info-label">Song:</span>
+            <span className="cyberpunk-info-label">Data Tag:</span>
             <span className="cyberpunk-info-value" style={{textTransform: 'capitalize'}}>{progression.songName}</span>
           </div>
           <div className="cyberpunk-info">

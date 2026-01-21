@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProgressionParams } from '../types/chords';
 import { getFirstChordOptions } from '../utils/chordTheory';
 
 interface ChordProgressionControlsProps {
   params: ProgressionParams;
   onParamsChange: (params: ProgressionParams) => void;
-  onGenerate: () => void;
+  onGenerate?: () => void;
 }
 
 export function ChordProgressionControls({ params, onParamsChange, onGenerate }: ChordProgressionControlsProps) {
   const scaleTypes = ['Any', 'Major', 'Natural minor', 'Harmonic minor', 'Melodic minor'];
   const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   
+  const [showWarning, setShowWarning] = useState<boolean>(false);
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  
   const firstChordOptions = getFirstChordOptions(params.scaleType);
+
+  const handleTritoneCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWarningMessage('Chord Inclusion Blocked By: 212.77.0.0/19 (IPv4)');
+    setShowWarning(true);
+    
+    // Auto-uncheck after 0.5 seconds
+    setTimeout(() => {
+      const checkbox = document.getElementById('tritoneChords') as HTMLInputElement;
+      if (checkbox) {
+        checkbox.checked = false;
+      }
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (showWarning) {
+      const timer = setTimeout(() => {
+        setShowWarning(false);
+        setWarningMessage('');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showWarning]);
 
   const updateParam = <K extends keyof ProgressionParams>(key: K, value: ProgressionParams[K]) => {
     const newParams = { ...params, [key]: value };
@@ -29,7 +55,6 @@ export function ChordProgressionControls({ params, onParamsChange, onGenerate }:
     <div className="space-y-6">
       <div className="cyberpunk-card">
         <h2 className="cyberpunk-title" style={{textAlign: 'left'}}>Chord Settings</h2>
-
         
         <div className="settings-grid">
           {/* Scale Type */}
@@ -98,11 +123,42 @@ export function ChordProgressionControls({ params, onParamsChange, onGenerate }:
               aria-label="Allow borrowed and suspended chords"
             />
             <label htmlFor="borrowedSuspended" className="text-sm cursor-pointer" style={{color: 'var(--text-secondary)'}}>
-              Allow borrowed and suspended chords (5% probability)
+              Include borrowed and suspended options in chord pool (5% occurrence)
             </label>
           </div>
+
+          {/* Tritone Chords Checkbox */}
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              id="tritoneChords"
+              onChange={handleTritoneCheckbox}
+              aria-label="Include tritone chords in progression options"
+            />
+            <label htmlFor="tritoneChords" className="text-sm cursor-pointer" style={{color: 'var(--text-secondary)'}}>
+              Include tritone options in chord pool (5% occurrence)
+            </label>
+          </div>
+
+          {/* Warning Message */}
+          {showWarning && (
+            <div className="cyberpunk-warning" style={{
+              color: '#FF1744',
+              fontSize: '14px',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginTop: '12px',
+              padding: '8px',
+              border: '1px solid rgba(255, 23, 68, 0.3)',
+              backgroundColor: 'rgba(255, 23, 68, 0.1)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              {warningMessage}
+            </div>
+          )}
         </div>
+      </div>
     </div>
-  </div>
   );
 }

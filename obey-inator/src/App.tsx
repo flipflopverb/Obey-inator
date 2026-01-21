@@ -1,5 +1,5 @@
 import { ChordProgressionGenerator } from "./components/ChordProgressionGenerator";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 
 const marqueePhrases = [
@@ -15,6 +15,22 @@ const headerStyle = {
 
 export function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [showDevCheckbox, setShowDevCheckbox] = useState<boolean>(false);
+
+  useEffect(() => {
+    // F12 key detection for developer checkbox
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'F12') {
+        setShowDevCheckbox(true);
+        // Don't prevent default - let browser dev tools open normally
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -223,13 +239,16 @@ export function App() {
 
         <div style={{minHeight: 'calc(100vh - 100px)', display: 'flex', flexDirection: 'column'}}>
           <main style={{flex: 1, paddingBottom: '120px'}}>
-            <ChordProgressionGenerator />
+            <ChordProgressionGenerator 
+              showDevCheckbox={showDevCheckbox}
+              onDevCheckboxShow={setShowDevCheckbox}
+            />
           </main>
           
           <footer className="cyberpunk-footer">
             <div className="footer-text-container">
-              <div className="footer-text glitch-effect" data-text="TERMS ENFORCED • EXPERIMENT RESPONSIBLY">
-                TERMS ENFORCED • EXPERIMENT RESPONSIBLY
+              <div className="footer-text glitch-effect" data-text="TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE">
+                TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE
               </div>
             </div>
           </footer>
