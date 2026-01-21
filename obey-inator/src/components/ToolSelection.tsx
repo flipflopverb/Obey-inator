@@ -16,10 +16,10 @@ export function ToolSelection({
   showChordTools, 
   onSongToolsChange, 
   onChordToolsChange,
-  showDevCheckbox = false,
-  devModeEnabled = false,
-  onDevModeChange,
-  onDevCheckboxShow
+  showFuckMyDytech = false,
+  fuckMyDytechEnabled = false,
+  onFuckMyDytechChange,
+  onFuckMyDytechShow
 }: ToolSelectionProps) {
   return (
     <div className="tool-selection-card">
@@ -44,14 +44,15 @@ export function ToolSelection({
           <span>Chord Settings & Data</span>
         </label>
         
-        {showDevCheckbox && (
-          <label className="tool-checkbox dev-checkbox">
+        {showFuckMyDytech && (
+          <label className="tool-checkbox fuck-my-dytech-checkbox">
             <input
               type="checkbox"
-              checked={devModeEnabled}
-              onChange={(e) => onDevModeChange?.(e.target.checked)}
+              id="fuckMyDytechToolSelection"
+              checked={fuckMyDytechEnabled}
+              onChange={(e) => onFuckMyDytechChange?.(e.target.checked)}
             />
-            <span>Developer Mode</span>
+            <span>FUCK MYDYTECH</span>
           </label>
         )}
       </div>

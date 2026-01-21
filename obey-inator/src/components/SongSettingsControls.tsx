@@ -40,8 +40,8 @@ export function SongSettingsControls({ params, onParamsChange }: SongSettingsCon
       }
     }
 
-    // Handle time signature joke
-    if (key === 'timeSignature' && value !== '4/4') {
+    // Remove time signature restrictions when FUCK MYDYTECH is enabled
+    if (key === 'timeSignature' && value !== '4/4' && !params.fuckMyDytech) {
       setWarningMessage('[ time signature request not approved ]');
       setShowWarning(true);
       newParams.timeSignature = '4/4';
@@ -114,6 +114,8 @@ export function SongSettingsControls({ params, onParamsChange }: SongSettingsCon
               ))}
             </select>
           </div>
+
+          {/* FUCK MYDYTECH checkbox removed - moved to Tool Selection */}
 
           {/* Warning Message */}
           {showWarning && (

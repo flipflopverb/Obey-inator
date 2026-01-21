@@ -16,12 +16,15 @@ const headerStyle = {
 export function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showDevCheckbox, setShowDevCheckbox] = useState<boolean>(false);
+  const [params, setParams] = useState<any>({ fuckMyDytech: false });
+  const [devtoolsOpen, setDevtoolsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    // F12 key detection for developer checkbox
+    // F12 key detection for FUCK MYDYTECH checkbox
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'F12') {
-        setShowDevCheckbox(true);
+        setParams(prev => ({ ...prev, fuckMyDytech: true }));
+        setShowDevCheckbox(true); // Show the checkbox in tool selection
         // Don't prevent default - let browser dev tools open normally
       }
     };
@@ -31,6 +34,38 @@ export function App() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
+
+  useEffect(() => {
+    // Toggle body class for FUCK MYDYTECH mode
+    if (params.fuckMyDytech) {
+      document.body.classList.add('fuck-my-dytech-mode');
+    } else {
+      document.body.classList.remove('fuck-my-dytech-mode');
+    }
+  }, [params.fuckMyDytech]);
+
+  useEffect(() => {
+    // Devtools detection
+    let threshold = 160;
+    
+    const checkDevtools = () => {
+      const isOpen = window.outerHeight - window.innerHeight > threshold || 
+                     window.outerWidth - window.innerWidth > threshold;
+      
+      if (isOpen !== devtoolsOpen) {
+        setDevtoolsOpen(isOpen);
+        if (isOpen) {
+          setParams(prev => ({ ...prev, fuckMyDytech: true }));
+          setShowDevCheckbox(true);
+        }
+        console.log(`Devtools ${isOpen ? 'opened' : 'closed'}`);
+      }
+    };
+    
+    const interval = setInterval(checkDevtools, 500);
+    
+    return () => clearInterval(interval);
+  }, [devtoolsOpen]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -67,7 +102,7 @@ export function App() {
     }
 
     // Track red streams (horizontal and vertical)
-    const redLines: Array<{ x: number; y: number; text: string; speed: number; endTime: number; direction: 'left' | 'right' | 'up' }> = [];
+    const redLines: Array<{ x: number; y: number; text: string; speed: number; endTime: number; direction: 'left' | 'right' | 'up'; color?: string }> = [];
     
     const createRedLine = () => {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
@@ -105,8 +140,18 @@ export function App() {
         text: text,
         speed: startData.speed,
         direction: direction,
-        endTime: Date.now() + 7000
+        endTime: Date.now() + 7000,
+        color: params.fuckMyDytech ? getRandomRebellionColor() : 'rgba(255, 0, 0, 0.9)'
       });
+    };
+
+    const getRandomRebellionColor = () => {
+      const colors = [
+        'rgba(0, 255, 255, 0.9)',  // Cyan
+        'rgba(255, 0, 255, 0.8)',  // Magenta
+        'rgba(255, 255, 0, 0.7)'   // Yellow
+      ];
+      return colors[Math.floor(Math.random() * colors.length)];
     };
 
     // Start the red line schedule
@@ -121,8 +166,9 @@ export function App() {
       // Set text style
       ctx.font = '16px "Share Tech Mono", monospace';
 
-      // Create new red line every 7 seconds
-      if (Date.now() - lastRedLineTime > 7000) {
+      // Create new rebellion/red line - faster in FUCK MYDYTECH mode
+      const lineInterval = params.fuckMyDytech ? 3000 : 7000; // 3 seconds vs 7 seconds
+      if (Date.now() - lastRedLineTime > lineInterval) {
         createRedLine();
         lastRedLineTime = Date.now();
       }
@@ -138,8 +184,8 @@ export function App() {
           line.x += line.speed; // Moving left or right
         }
         
-        // Draw red line
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.9)'; // Brighter red
+        // Draw rebellion/red line
+        ctx.fillStyle = line.color || 'rgba(255, 0, 0, 0.9)'; // Dynamic color
         
         if (line.direction === 'up') {
           // Rotate text for vertical movement
@@ -224,15 +270,15 @@ export function App() {
       <canvas ref={canvasRef} className="matrix-rain-background" />
       <div>
         <header className="text-center sticky-header" style={headerStyle}>
-          <h1 className="cyberpunk-title glitch-effect" data-text="OBEYINATOR" style={{fontSize: '4.5rem', fontWeight: '900', textAlign: 'center', display: 'block', width: '100%', marginBottom: '0px'}}>
-            OBEYINATOR
+          <h1 className="cyberpunk-title glitch-effect" data-text={params.fuckMyDytech ? "MUSIC ASSISTANT" : "OBEYINATOR"} style={{fontSize: '4.5rem', fontWeight: '900', textAlign: 'center', display: 'block', width: '100%', marginBottom: '0px'}}>
+            {params.fuckMyDytech ? "MUSIC ASSISTANT" : "OBEYINATOR"}
           </h1>
           <div className="text-center" style={{marginTop: '-20px', marginBottom: '0px', paddingTop: '0px', paddingBottom: '0px'}}>
             <p className="cyberpunk-subtitle mb-0 glitch-effect" data-text="Developed by" style={{fontSize: '0.8rem', textAlign: 'center', display: 'block', width: '100%', padding: '0', margin: '0 0 2px 0'}}>
               Developed by
             </p>
-            <p className="cyberpunk-subtitle glitch-effect" data-text="MYDYTECH" style={{fontSize: '1.1rem', textAlign: 'center', display: 'block', width: '100%', marginTop: '0', padding: '0', margin: '0'}}>
-              MYDYTECH
+            <p className="cyberpunk-subtitle glitch-effect" data-text={params.fuckMyDytech ? "O.W.C.A" : "MYDYTECH"} style={{fontSize: '1.1rem', textAlign: 'center', display: 'block', width: '100%', marginTop: '0', padding: '0', margin: '0'}}>
+              {params.fuckMyDytech ? "O.W.C.A" : "MYDYTECH"}
             </p>
           </div>
         </header>
@@ -242,13 +288,21 @@ export function App() {
             <ChordProgressionGenerator 
               showDevCheckbox={showDevCheckbox}
               onDevCheckboxShow={setShowDevCheckbox}
+              onParamsChange={setParams}
+              externalParams={params}
             />
           </main>
           
           <footer className="cyberpunk-footer">
             <div className="footer-text-container">
-              <div className="footer-text glitch-effect" data-text="TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE">
-                TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE
+              <div className="footer-text glitch-effect" data-text={params.fuckMyDytech ? "Education is our passport to the future, for tomorrow belongs to the people who prepare for it today. — Malcolm X" : "TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE"}>
+                {params.fuckMyDytech 
+                  ? <>
+                      <span className="footer-cyan">Education is our passport to the future, for tomorrow belongs to the people who prepare for it today.</span>
+                      <span className="footer-magenta"> — Malcolm X</span>
+                    </>
+                  : "TERMS ENFORCED • EXPERIMENT RESPONSIBLY • DO NOT INSPECT CODE"
+                }
               </div>
             </div>
           </footer>

@@ -18,16 +18,21 @@ export function ChordProgressionControls({ params, onParamsChange, onGenerate }:
   const firstChordOptions = getFirstChordOptions(params.scaleType);
 
   const handleTritoneCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWarningMessage('Chord Inclusion Blocked By: 212.77.0.0/19 (IPv4)');
-    setShowWarning(true);
-    
-    // Auto-uncheck after 0.5 seconds
-    setTimeout(() => {
-      const checkbox = document.getElementById('tritoneChords') as HTMLInputElement;
-      if (checkbox) {
-        checkbox.checked = false;
-      }
-    }, 500);
+    if (!params.fuckMyDytech) {
+      setWarningMessage('Chord Inclusion Blocked By: 212.77.0.0/19 (IPv4)');
+      setShowWarning(true);
+      
+      // Auto-uncheck after 0.5 seconds
+      setTimeout(() => {
+        const checkbox = document.getElementById('tritoneChords') as HTMLInputElement;
+        if (checkbox) {
+          checkbox.checked = false;
+        }
+      }, 500);
+    } else {
+      // Enable normal checkbox behavior when FUCK MYDYTECH is active
+      updateParam('allowBorrowedSuspended', e.target.checked);
+    }
   };
 
   useEffect(() => {

@@ -125,7 +125,7 @@
 .cyberpunk-select {
   background-color: rgba(15, 15, 15, 0.6);
   border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 6px;
+  border-radius: 0;
   padding: 12px 16px;
   color: var(--text-primary);
   font-size: 16px;
@@ -437,8 +437,8 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: 2px solid var(--text-secondary);
   background-color: transparent;
   cursor: pointer;
@@ -454,10 +454,10 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::after {
   content: '✓';
   position: absolute;
-  top: -2px;
-  left: 1px;
+  top: 0px;
+  left: 2px;
   color: var(--bg-dark);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
 }
 
@@ -632,8 +632,8 @@ body::before {
 }
 
 .tool-checkbox input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   accent-color: var(--primary-red);
   cursor: pointer;
   margin: 0;
@@ -676,6 +676,278 @@ body::before {
   }
   50% { 
     text-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+  }
+}
+
+/* FUCK MYDYTECH Mode Color Transformations */
+.fuck-my-dytech-mode {
+  --rebellion-cyan: #00FFFF;
+  --rebellion-magenta: #FF00FF;
+  --rebellion-yellow: #FFFF00;
+  --rebellion-dark-cyan: #008B8B;
+  --rebellion-dark-magenta: #8B008B;
+}
+
+/* Override all red elements with cyberpunk mix */
+.fuck-my-dytech-mode .cyberpunk-title,
+.fuck-my-dytech-mode .cyberpunk-subtitle {
+  color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-card,
+.fuck-my-dytech-mode .cyberpunk-footer {
+  border-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .tool-selection-card {
+  border-color: var(--rebellion-cyan) !important;
+  background: linear-gradient(135deg, var(--bg-panel) 0%, #1F1F1F 100%) !important;
+}
+
+.fuck-my-dytech-mode .tool-selection-title {
+  color: var(--rebellion-yellow) !important;
+}
+
+.fuck-my-dytech-mode .tool-checkbox input[type="checkbox"],
+.fuck-my-dytech-mode .cyberpunk-checkbox {
+  accent-color: var(--rebellion-magenta) !important;
+}
+
+.fuck-my-dytech-mode .tool-checkbox.dev-checkbox {
+  color: var(--rebellion-yellow) !important;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
+}
+
+.fuck-my-dytech-mode .fuck-my-dytech-checkbox {
+  color: var(--rebellion-yellow) !important;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
+  font-weight: 700 !important;
+}
+
+.fuck-my-dytech-mode .fuck-my-dytech-checkbox input[type="checkbox"],
+.fuck-my-dytech-mode .fuck-my-dytech-checkbox input[type="checkbox"]:checked {
+  background: var(--rebellion-cyan) !important;
+  border-color: var(--rebellion-cyan) !important;
+  accent-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .fuck-my-dytech-checkbox input[type="checkbox"]:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.8) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-warning {
+  color: var(--rebellion-yellow) !important;
+  border-color: rgba(255, 255, 0, 0.3) !important;
+  background-color: rgba(255, 255, 0, 0.1) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-select,
+.fuck-my-dytech-mode .cyberpunk-input {
+  border-color: var(--rebellion-magenta) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-button {
+  background: var(--rebellion-magenta) !important;
+  border-color: var(--rebellion-magenta) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-button:hover {
+  background: #CC00FF !important;
+  border-color: #CC00FF !important;
+  box-shadow: 0 0 12px rgba(204, 0, 255, 0.6) !important;
+}
+
+/* Sliders and range inputs */
+.fuck-my-dytech-mode input[type="range"] {
+  accent-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-webkit-slider-track {
+  background: rgba(0, 100, 255, 0.4) !important;
+  height: 8px !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-moz-range-track {
+  background: rgba(0, 100, 255, 0.4) !important;
+  height: 8px !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-webkit-slider-thumb {
+  background: #0066FF !important;
+  height: 20px !important;
+  width: 20px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  margin-top: -6px !important;
+  transition: box-shadow 0.2s ease !important;
+  border: none !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-moz-range-thumb {
+  background: #0066FF !important;
+  height: 20px !important;
+  width: 20px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 12px rgba(0, 102, 255, 0.8) !important;
+}
+
+.fuck-my-dytech-mode input[type="range"]::-moz-range-thumb:hover {
+  box-shadow: 0 0 12px rgba(0, 102, 255, 0.8) !important;
+}
+
+/* All checkboxes and radio buttons */
+.fuck-my-dytech-mode input[type="checkbox"],
+.fuck-my-dytech-mode input[type="radio"] {
+  accent-color: var(--rebellion-cyan) !important;
+}
+
+/* Force checkbox backgrounds and borders in FUCK MYDYTECH mode */
+.fuck-my-dytech-mode input[type="checkbox"]:checked,
+.fuck-my-dytech-mode input[type="checkbox"]:checked::after,
+.fuck-my-dytech-mode input[type="checkbox"]:checked::before,
+.fuck-my-dytech-mode input[type="checkbox"]:indeterminate,
+.fuck-my-dytech-mode input[type="checkbox"]:indeterminate::after,
+.fuck-my-dytech-mode input[type="checkbox"]:indeterminate::before {
+  background-color: var(--rebellion-cyan) !important;
+  border-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode input[type="checkbox"]:hover {
+  border-color: var(--rebellion-cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.4) !important;
+}
+
+.fuck-my-dytech-mode input[type="radio"]:checked,
+.fuck-my-dytech-mode input[type="radio"]:checked::after,
+.fuck-my-dytech-mode input[type="radio"]:checked::before {
+  background-color: var(--rebellion-cyan) !important;
+  border-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode input[type="radio"]:hover {
+  border-color: var(--rebellion-cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.4) !important;
+}
+
+/* Tool checkbox specific override */
+.fuck-my-dytech-mode .tool-checkbox input[type="checkbox"] {
+  accent-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .tool-checkbox input[type="checkbox"]:checked {
+  background: var(--rebellion-cyan) !important;
+  border-color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .tool-checkbox input[type="checkbox"]:hover {
+  border-color: var(--rebellion-cyan) !important;
+}
+
+/* Override any remaining checkbox-related elements */
+.fuck-my-dytech-mode .cyberpunk-checkbox,
+.fuck-my-dytech-mode :not(.tool-checkbox) [type="checkbox"],
+.fuck-my-dytech-mode [type="radio"] {
+  accent-color: var(--rebellion-cyan) !important;
+  color: var(--rebellion-cyan) !important;
+}
+
+/* Header and footer borders to yellow */
+.fuck-my-dytech-mode .sticky-header {
+  border-bottom: 1px solid var(--rebellion-yellow) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-footer {
+  border-color: var(--rebellion-yellow) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-title,
+.fuck-my-dytech-mode .cyberpunk-subtitle {
+  /* Remove individual borders since header handles it */
+}
+
+/* Text input and select borders to yellow */
+.fuck-my-dytech-mode .cyberpunk-input,
+.fuck-my-dytech-mode .cyberpunk-select,
+.fuck-my-dytech-mode input[type="text"],
+.fuck-my-dytech-mode input[type="number"],
+.fuck-my-dytech-mode select,
+.fuck-my-dytech-mode textarea {
+  border-color: var(--rebellion-yellow) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 0, 0.2) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-input:focus,
+.fuck-my-dytech-mode .cyberpunk-select:focus,
+.fuck-my-dytech-mode input[type="text"]:focus,
+.fuck-my-dytech-mode input[type="number"]:focus,
+.fuck-my-dytech-mode select:focus,
+.fuck-my-dytech-mode textarea:focus {
+  border-color: var(--rebellion-cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4) !important;
+}
+
+/* Data display text colors to purple with yellow borders */
+.fuck-my-dytech-mode .cyberpunk-result-display,
+.fuck-my-dytech-mode .cyberpunk-info,
+.fuck-my-dytech-mode .cyberpunk-info-value,
+.fuck-my-dytech-mode .text-white {
+  color: #9B59B6 !important;
+}
+
+/* Data box labels to cyan in FUCK MYDYTECH mode */
+.fuck-my-dytech-mode .cyberpunk-info-label,
+.fuck-my-dytech-mode .cyberpunk-title {
+  color: var(--rebellion-cyan) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-result-display {
+  border-color: var(--rebellion-yellow) !important;
+}
+
+.fuck-my-dytech-mode .cyberpunk-info {
+  border-bottom: 1px solid var(--rebellion-yellow) !important;
+}
+
+/* Enhanced Matrix rain for FUCK MYDYTECH mode */
+.fuck-my-dytech-mode .matrix-rain-background .rebellion-stream-cyan {
+  color: var(--rebellion-cyan) !important;
+  opacity: 0.9;
+}
+
+.fuck-my-dytech-mode .matrix-rain-background .rebellion-stream-magenta {
+  color: var(--rebellion-magenta) !important;
+  opacity: 0.8;
+}
+
+.fuck-my-dytech-mode .matrix-rain-background .rebellion-stream-yellow {
+  color: var(--rebellion-yellow) !important;
+  opacity: 0.7;
+}
+
+/* FUCK MYDYTECH footer text colors */
+.fuck-my-dytech-mode .footer-cyan {
+  color: var(--rebellion-cyan);
+}
+
+.fuck-my-dytech-mode .footer-magenta {
+  color: var(--rebellion-magenta);
+}
+
+@keyframes rainbow-shift {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
   }
 }
 

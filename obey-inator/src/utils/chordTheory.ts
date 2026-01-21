@@ -59,7 +59,10 @@ export const CHORD_SEMITONES: Record<string, number[]> = {
   'vii°sus2': [11, 13, 17],
   'vii°sus4': [11, 16, 17],
   'VIIsus2': [10, 12, 17],
-  'VIIsus4': [10, 15, 17]
+  'VIIsus4': [10, 15, 17],
+  
+  // Tritone substitution chord (subV7) - diad as specified
+  'subV7': [0, 6]
 };
 
 // Key to MIDI note offset (for absolute MIDI note calculation)
@@ -102,6 +105,11 @@ export function generateChordProgression(params: ProgressionParams): string[] {
       chordOptions = borrowedSuspendedChords.filter(chord => 
         chordOptions.some(base => chord.startsWith(base))
       );
+    }
+    
+    // 5% chance for subV7 chord if FUCK MYDYTECH is enabled and borrowed/suspended is active
+    if (params.fuckMyDytech && params.allowBorrowedSuspended && Math.random() < 0.05) {
+      chordOptions.push('subV7');
     }
     
     // Filter out immediate repetition

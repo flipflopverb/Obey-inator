@@ -138,6 +138,7 @@ TERMS WILL BE ENFORCED`;
             onClick={handleCopyToClipboard}
             className="cyberpunk-button mx-auto"
             style={{width: '200px'}}
+            disabled={!songInfo}
           >
             Copy to Clipboard
           </button>
@@ -146,6 +147,7 @@ TERMS WILL BE ENFORCED`;
             onClick={handleDownloadText}
             className="cyberpunk-button mx-auto"
             style={{width: '200px'}}
+            disabled={!songInfo}
           >
             Download .txt
           </button>

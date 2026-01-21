@@ -9,17 +9,26 @@ interface ChordProgressionDisplayProps {
 
 export function ChordProgressionDisplay({ progression, onGenerate }: ChordProgressionDisplayProps) {
   const handleCopyToClipboard = async () => {
-    const text = progression ? `Song: ${progression.songName}
-Key: ${progression.params.key} ${progression.params.scaleType}
-Progression: ${formatProgressionText(progression.chords)}` : 'No progression to copy';
+  const text = progression ? `Song: ${progression.songName}\nKey: ${progression.params.key} ${progression.params.scaleType}\nProgression: ${formatProgressionText(progression.chords)}` : 'No progression to copy';
+
+  const disclaimerText = progression.params.fuckMyDytech 
+    ? "Generated with MUSIC ASSISTANT by O.W.C.A - Artistic outputs belong to the people."
+    : "Generated with OBEYINATOR. Reminder: all artistic endeavors that use any MYDYTECH products grant all rights to those artistic outputs to MYDYTECH LLC. \n\nTERMS WILL BE ENFORCED";
     
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('Progression copied to clipboard!');
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      alert('Failed to copy to clipboard');
-    }
+    const filename = `chord-progression-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
+    
+    const fullText = `${text}
+
+${disclaimerText}`;
+    const blob = new Blob([fullText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${filename}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const handleDownloadText = () => {
@@ -29,10 +38,8 @@ Progression: ${formatProgressionText(progression.chords)}` : 'No progression to 
 Key: ${progression.params.key} ${progression.params.scaleType}
 Progression: ${formatProgressionText(progression.chords)}
 
-Generated with OBEYINATOR. Reminder: all artistic endeavors that use any MYDYTECH products grant all rights to those artistic outputs to MYDYTECH LLC. 
+${disclaimerText}`;
 
-TERMS WILL BE ENFORCED`;
-    
     const filename = `chord-progression-${progression.params.key}-${progression.params.scaleType.toLowerCase()}`;
     
     const blob = new Blob([text], { type: 'text/plain' });

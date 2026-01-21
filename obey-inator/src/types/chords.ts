@@ -13,6 +13,7 @@ export interface ProgressionParams {
   lowerTempoLimit: number;
   songLength: number;
   timeSignature: string;
+  fuckMyDytech?: boolean;
 }
 
 export interface ChordProgression {
@@ -26,6 +27,6 @@ export interface SongInfo {
   songLength: number;
   timeSignature: string;
   tempo: number;
-  fourBarSections: number;
+  fourBarSections: number | string;
   timestamp: number;
 }
